@@ -24,7 +24,7 @@ class WebViewExample extends StatefulWidget {
 }
 class _WebViewExampleState extends State<WebViewExample> {
   final _key = UniqueKey();
-  final String _url = 'tron2033.com';
+  final String _url = 'trxoreo.com';
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
@@ -36,9 +36,15 @@ class _WebViewExampleState extends State<WebViewExample> {
           initialUrl: 'https://'+_url+'/?mobile=true',
           navigationDelegate: (NavigationRequest request) {
             // WebView içindeki linkleri açmak için kontrol ediyoruz.
-            if (!request.url.startsWith('https://'+_url)) {
+            debugPrint(request.url);
+            // request.url.startsWith('https://'+_url+'/?mobile=true#')
+            if (request.url.startsWith('https://t.me')) {
               launch(request.url);
-              return NavigationDecision.prevent;
+             return NavigationDecision.prevent;
+            }
+            if (request.url.startsWith(request.url+'/googleplay/')) {
+              launch(request.url);
+             return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
           },
